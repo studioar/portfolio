@@ -8,7 +8,7 @@
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap');
   :root{--green:#3E4736;--cream:#F5F2ED;--warm:#E8E2D9;--stone:#9a9490;--dark:#1a1c18;--gold:#C4A97D;}
   *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth;overflow-anchor:none;}
   body{background:var(--cream);color:var(--dark);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;}
 
   nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:22px 56px;display:flex;justify-content:space-between;align-items:center;}
@@ -155,16 +155,12 @@
   }
 
 </style>
+<script>
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+</script>
 </head>
 <body>
-<script>
-  // Impede o navegador de restaurar a posição de scroll ao carregar
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  window.addEventListener('load', function() {
-    if (!location.hash) window.scrollTo(0, 0);
-  });
-  window.scrollTo(0, 0);
-</script>
+
 
 <nav>
   <a href="#" class="nav-logo">
@@ -358,5 +354,28 @@
   </a>
 </footer>
 
+<script>
+(function() {
+  if (location.hash) return; // respeita links de seção
+  var lock = true;
+  function toTop() { window.scrollTo(0, 0); document.documentElement.scrollTop = 0; document.body.scrollTop = 0; }
+  toTop();
+  document.addEventListener('DOMContentLoaded', toTop);
+  window.addEventListener('load', function() {
+    toTop();
+    setTimeout(toTop, 50);
+    setTimeout(toTop, 200);
+    setTimeout(function(){ toTop(); lock = false; }, 600);
+  });
+  // Bloqueia qualquer scroll automático nos primeiros 600ms (scroll do usuário libera na hora)
+  window.addEventListener('wheel', function(){ lock = false; }, {passive:true});
+  window.addEventListener('touchstart', function(){ lock = false; }, {passive:true});
+  var guard = setInterval(function() {
+    if (!lock) { clearInterval(guard); return; }
+    if (window.scrollY > 0) toTop();
+  }, 30);
+  setTimeout(function(){ lock = false; clearInterval(guard); }, 1500);
+})();
+</script>
 </body>
 </html>
