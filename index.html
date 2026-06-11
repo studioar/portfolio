@@ -93,9 +93,78 @@
   .f-ig{display:flex;align-items:center;gap:12px;text-decoration:none;color:rgba(245,242,237,.4);font-size:11px;letter-spacing:.2em;transition:color .25s;}
   .f-ig:hover{color:var(--gold);}
   .f-ig svg{width:18px;height:18px;fill:currentColor;}
+
+  /* ═══════════ MOBILE ═══════════ */
+  @media (max-width: 768px) {
+    nav{padding:16px 20px;}
+    .nav-links{display:none;}
+    .nav-ar{font-size:20px;}
+
+    .hero img{min-height:70vh;object-fit:cover;}
+    .hero-content{bottom:48px;left:20px;right:20px;}
+    .hero-h1{font-size:clamp(40px,11vw,60px);}
+    .hero-sub{font-size:11px;}
+    .scroll-cue{display:none;}
+
+    .sobre{grid-template-columns:1fr;padding:60px 20px;gap:40px;}
+    .sobre-img img{height:320px;}
+
+    .sec-head{padding:56px 20px 32px;flex-wrap:wrap;gap:12px;}
+    .sec-head .label{width:100%;}
+
+    .p-label{bottom:20px;left:20px;padding:8px 16px;}
+    .p-label strong{font-size:17px;}
+
+    /* grids viram coluna única */
+    .g3{grid-template-columns:1fr;}
+    .g3 .c{height:300px;}
+    .g2{grid-template-columns:1fr;}
+    .g2 .c{height:300px !important;}
+
+    .pg{grid-template-columns:1fr;}
+    .pg440{grid-template-rows:auto;}
+    .pg400{grid-template-rows:auto;}
+    .pg .c{height:300px;}
+    .dark-panel,.green-panel{padding:44px 24px;}
+    .dark-panel h3,.green-panel h3{font-size:32px;}
+
+    .ms-text{bottom:32px;left:20px;right:20px;}
+    .ms-text h2{font-size:clamp(40px,11vw,60px);}
+    .ms-text .sub{font-size:9px;}
+    .ms-g2{grid-template-columns:1fr;}
+    .ms-g2 .c{height:300px;}
+    .ms-g3{grid-template-columns:1fr;}
+    .ms-g3 .c{height:300px;}
+
+    /* corporativo grid especial */
+    div[style*="grid-template-columns:2fr 1fr 1fr"]{grid-template-columns:1fr !important;}
+    div[style*="grid-template-columns:2fr 1fr 1fr"] .c{height:300px !important;}
+
+    /* cenografia sertanejo full */
+    div[style*="height:380px"]{height:300px !important;}
+
+    footer{flex-direction:column;align-items:flex-start;gap:32px;padding:56px 20px 44px;}
+    .f-logo .f-ar{font-size:36px;}
+
+    .gap{height:48px;}
+  }
+
+  @media (max-width: 480px) {
+    .hero-h1{font-size:38px;}
+    .g3 .c,.g2 .c,.pg .c,.ms-g2 .c,.ms-g3 .c{height:240px;}
+  }
+
 </style>
 </head>
 <body>
+<script>
+  // Impede o navegador de restaurar a posição de scroll ao carregar
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.addEventListener('load', function() {
+    if (!location.hash) window.scrollTo(0, 0);
+  });
+  window.scrollTo(0, 0);
+</script>
 
 <nav>
   <a href="#" class="nav-logo">
